@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu site beta</title>
+    <!--- COLOCAR O LINK DE INTEGRAO COM CSS-->
+    <link rel="stylesheet" href="estiloc.css">
+</head>
+<body>
+
+    <header>
+        <h1>Minha loja com carrinho</h1>
+    </header>
+
+    <main>
+        <section class="Produtos">
+            <h2>Produtos</h2>
+            <div class="grid">
+                <article class="produto">
+                    <img src="produto1.jpg" alt="Produto 1">
+                    <h3> Produto 1</h3>
+                    <p>R$300,00</p>
+                    <button onclick="adicionarAoCarrinho('Produto 1', 300)"></button>
+                </article> 
+                <article class="produto">
+                    <img src="produto1.jpg" alt="Produto 1">
+                    <h3> Produto 2</h3>
+                    <p>R$35,00</p>
+                    <button onclick="adicionarAoCarrinho('Produto 2', 35)"></button>
+                </article>
+            </div>
+        </section>
+        <!-- CArrinho-->
+        <section class="carrinho">
+            <h2>Seu carrinho</h2>
+            <ul id="lista-carrinho"></ul>
+            <p>Total: <span id="total">R$0,00</span></p>
+        </section>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>
