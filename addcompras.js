@@ -6,42 +6,28 @@
 
 let carrinho =[];
 let total = 0;
-//FUNCAO ARRASTAR
-function iniciarArraste(event) {
-    let produto = event.target.closest(".produto"); // Para garanti que estar pegando o elemento certo
 
-    if (produto) {
-        let nome = produto.querySelector("h3").textContent;
-        let preco = produto.querySelector("p").textContent.replace("R$", "").trim();
+function alternarModo(){
+    document.body.classList.toggle("dark-mode");
 
-        event.dataTransfer.setData("text", JSON.stringify({ nome, preco }));
-    }
+    let modoAtivo = document.body.classList.contains("dark-mode");
+    localStorage.setItem("modo-dark", modoAtivo);
 }
 
-function permitirSoltar(event) {
-    event.preventDefault();
-}
-
-function soltarDoCarrinho(event) {
-    event.preventDefault();
-
-    let produtoData = event.dataTransfer.getData("text");
-
-    if (produtoData) {
-        try{
-            let produto = JSON.parse(produtoData);
-
-            console.log("produto solto:", produto);
-            //verifica se os dados foram capturados corrtamente
-            if (produto.nome && produto.preco) {
-                adicionarAoCarrinho(produto.nome, parseFloat(produto.preco));
-            } else {
-                console.error("Erro ao recuperarproduto: ", produto);
-            }
-        } catch (error){
-            console.error("Erro ao processar dados do produto:", error);
-        }    
+window.onload = function() {
+    if (localStorage.getItem("modo-dark") === "true") {
+        document.body.classList.add("dark-mode")
     }
+};
+
+function filtrarProdutos() {
+    let termo = document.getElementById("pesquisa").ariaValueMax.toLowerCase();
+    let produtos = document.querySelectorAll(".produto");
+
+    produtos.forEach(produto => {
+        let nome = produto.querySelector("h3").textContent.toLowerCase();
+        produto.style.display = nome.includes(termo) ? "block" : "none";
+    });
 }
 
 //FUNCAO ADICIONAR ALGO NO CARRINHO
@@ -89,3 +75,81 @@ function atualizarCarrinho(){
 
     totalElemento.textContent = `R$${total.toFixed(2)}`;
 }
+
+//FUNCAO ARRASTAR
+function iniciarArraste(event) {
+    let produto = event.target.closest(".produto"); // Para garanti que estar pegando o elemento certo
+
+    if (produto) {
+        let nome = produto.querySelector("h3").textContent;
+        let preco = produto.querySelector("p").textContent.replace("R$", "").trim();
+
+        event.dataTransfer.setData("text", JSON.stringify({ nome, preco }));
+    }
+}
+
+function permitirSoltar(event) {
+    event.preventDefault();
+}
+
+window.soltarNoCarrinho = function(event) {
+    event.preventDefault();
+
+    let produtoData = event.dataTransfer.getData("text");
+
+    if (produtoData) {
+        try{
+            let produto = JSON.parse(produtoData);
+            console.log("produto solto:", produto);
+
+            //verifica se os dados foram capturados corrtamente
+            if (produto.nome && produto.preco) {
+                adicionarAoCarrinho(produto.nome, parseFloat(produto.preco));
+            } else {
+                console.error("Erro ao recuperarproduto: ", produto);
+            }
+        } catch (error){
+            console.error("Erro ao processar dados do produto:", error);
+        }    
+    }
+};
+
+document.addEventListener("DOMContentLoaded", function(){
+    setTimeout(() => {
+        document.getElementById("tela-boas-vindas").classList.add("ocultar");
+        console.log("Transicao concluida! Tela oculta. ");
+    }, 2000);
+});
+
+function salvarCarrinho() {
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+}
+
+function carregarCarrinho(){
+    let dados = localStorage.getItem("carrinho");
+    if (dados) {
+        carrinho = JSON.parse(dados);
+        atualizarCarrinho();
+    }
+}
+
+window.onload = carregarCarrinho;
+
+// Criando a funcao para slider
+let slideIndex = 0;
+
+function mudarSlide(direcao) {
+    let slides = document.querySelector(".slides");
+    let produtos = document.querySelectorAll(".produto");
+    let totalSlides = produtos.length;
+
+     if ((slideIndex + direcao) >= totalSlides || (slideIndex + direcao) < 0) {
+        return;
+    }
+
+    slideIndex += direcao;
+    let deslocamento = -slideIndex * (produtos[0].offsetWidth + 20); // Tamanho do produto + espaçamento
+
+    slides.style.transform = `translateX(${deslocamento}px)`;
+}
+    
