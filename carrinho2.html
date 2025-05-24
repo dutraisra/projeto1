@@ -15,12 +15,13 @@
       <!-- Tela de boas-vindas -->
     <div id="tela-boas-vindas">
         <link rel="stylesheet" href="transicao.css">
-        <h1>Bem-vindo à Minha Loja!</h1>
+        <h1>Bem-vindo à ComprasNet!</h1>
     </div>
 
-    <input type="text" id="pesquisa" placeholder="Buscar prosutos..." onkeyup="filtrarProdutos()">
+   
     <header>
-        <h1>Minha loja com carrinho</h1>
+        <img src="https://bing.com/th/id/BCO.a16c66be-918f-46b0-b7f8-d1aacac4e37c.png" alt="Minha Loja" class="logo">
+         <input type="text" id="pesquisa" placeholder="Buscar prosutos..." onkeyup="filtrarProdutos()">
     </header>
 
     <main>
@@ -78,15 +79,16 @@
                     </article>
                 </div>
 
-                <button class="prev" onclick="mudarSlide(-1)"><</button>
-                <button class="next" onclick="mudarSlide(1)">></button>
+                <button class="prev" onclick="mudarSlide(-1)"></button>
+                <button class="next" onclick="mudarSlide(1)"></button>
 
             </div>
 
         </section>
         <!-- CArrinho-->
         <section class="carrinho"  ondragover="permitirSoltar(event)" ondrop="soltarNoCarrinho(event)">
-            <h2>Seu carrinho</h2>
+            <img src="https://bing.com/th/id/BCO.31c88082-a512-49e3-af5f-71a04f065fdb.png" alt="Carrinho de compras" class="icon-carrinho">
+            <h2></h2>
             <ul id="lista-carrinho"></ul>
             <p>Total: <span id="total">R$</span></p>
             <button onclick="confirmarCompra()">Confirmar Compra</button>
