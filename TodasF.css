@@ -28,7 +28,9 @@ body {
 .produtos {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .grind {
@@ -42,6 +44,7 @@ body {
     border-radius: 5px;
     width: 250px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    min-height: 250px;
 }
 
 button {
